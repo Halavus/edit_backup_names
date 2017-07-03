@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 import os
-from module import Folder as Folder
+from main import Folder as Folder
 
 ls=os.listdir('.')
 
