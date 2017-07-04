@@ -9,8 +9,9 @@ lsin=[Folder(i) for i in ls]
 
 counter = 0
 for i in lsin:
-    try:
-        print "lsin: ", counter, i.path, i.correct_date 
-    except AttributeError:
-        print ""
+    print "lsin: ", counter, i.path, i.new_path
     counter += 1
+
+for i in lsin:
+    if i.correct_date:
+        os.rename(i.path, i.new_path) 
