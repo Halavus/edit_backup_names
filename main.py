@@ -7,11 +7,9 @@ ls=os.listdir('.')
 
 lsin=[Folder(i) for i in ls]
 
-counter = 0
-for i in lsin:
-    print "lsin: ", counter, i.path, i.new_path
-    counter += 1
-
 for i in lsin:
     if i.correct_date:
-        os.rename(i.path, i.new_path) 
+        os.rename(i.path, i.new_path)
+        print i.filename, "-> renamed with", i.correct_date, "successfully"
+    else:
+        print i.filename, "-> has not been renamed"

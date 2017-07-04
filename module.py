@@ -10,19 +10,28 @@ from os.path import abspath
 class Folder:
     def __init__(self, filename):
         self.filename = filename
-        wrong_date = filename[7:15]
+        # indices == indice of each occurence of "-"
+        indices = [i for i, x in enumerate(filename) if x == "-"]
+        try:
+            wrong_date = filename[indices[0]+1:indices[1]]
+        except IndexError:
+            wrong_date = None
         try:
             if int(wrong_date) and wrong_date[:4] != "2017":
                 year = wrong_date[4:]
                 month = wrong_date[2:4]
                 day = wrong_date[:2]
                 self.correct_date = ''.join([year, month, day])
-                self.new_path = ''.join([os.getcwd(), "/", filename[:7], 
-                    self.correct_date, filename[15:]])
+                self.new_path = ''.join([
+                    os.getcwd(), "/",
+                    filename[:indices[0]+1],
+                    self.correct_date, filename[indices[1]:]
+                    ])
             else:
                 self.correct_date = None
                 self.new_path = None
-        except ValueError:
+        # TypeError would be if int(None) "NoneType"
+        except (ValueError, TypeError) as e:
                 self.correct_date = None
                 self.new_path = None
 
